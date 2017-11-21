@@ -4,13 +4,6 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-
-    <static-files>
-        <include path="favicon.ico" />
-        <include path="robots.txt" />
-        <include path="images/**.png" />
-        <include path="images/**.jpg" />
-	</static-files>
 		 
 	<!-- alterconsos -->  	
 	<servlet>
@@ -62,6 +55,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 <!-- -->
     <security-constraint>
         <web-resource-collection>
+        	<web-resource-name>admin</web-resource-name>       
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
@@ -71,6 +65,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
  
 	<security-constraint>
         <web-resource-collection>
+        	<web-resource-name>alterconsos</web-resource-name>       
             <url-pattern>/alterconsos</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
@@ -80,6 +75,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
     <security-constraint>
         <web-resource-collection>
+        	<web-resource-name>ac</web-resource-name>       
             <url-pattern>/ac</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
@@ -89,6 +85,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
     <security-constraint>
         <web-resource-collection>
+        	<web-resource-name>app</web-resource-name>       
             <url-pattern>/app</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
@@ -98,6 +95,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
          
     <security-constraint>
         <web-resource-collection>
+        	<web-resource-name>task</web-resource-name>       
             <url-pattern>/task/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
@@ -107,6 +105,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
     <security-constraint>
         <web-resource-collection>
+        	<web-resource-name>cron</web-resource-name>       
             <url-pattern>/cron/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
