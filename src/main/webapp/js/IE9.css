@@ -1,0 +1,8 @@
+.ecran .ncol_0, .ecran .tdA, .ecran .tdC, .ecran .tdE, .ecran .tdG { 
+	background: transparent;
+	border-left: 1px solid rgb(200,200,200);
+	border-right: 1px solid rgb(200,200,200);}
+.ecran .ncol_1, .ecran .tdB, .ecran .tdD, .ecran .tdF, .ecran .tdH { 
+	background: transparent;
+	border-left: 1px solid rgb(200,200,200);
+	border-right: 1px solid rgb(200,200,200);}

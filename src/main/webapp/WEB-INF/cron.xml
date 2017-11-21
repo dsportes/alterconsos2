@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/cron/Hebdos2/1</url>
+    <description>Envoi des mails hebdomadaires</description>
+    <schedule>every day 03:00</schedule>
+    <timezone>Europe/Paris</timezone>
+  </cron>
+  <cron>
+    <url>/cron/TaskArchive/0</url>
+    <description>Archivage des livraisons</description>
+    <schedule>every monday 05:00</schedule>
+    <timezone>Europe/Paris</timezone>
+  </cron>
+  <cron>
+    <url>/cron/TaskPurge/0</url>
+    <description>Purges des contacts, produits, livraisons</description>
+    <schedule>first day of sep 01:00</schedule>
+    <timezone>Europe/Paris</timezone>
+  </cron>
+</cronentries>

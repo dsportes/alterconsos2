@@ -1,0 +1,33 @@
+{ 
+	"maintenant":0, 
+	"build":"373",
+	
+	"configClass":"fr.alterconsos.AppConfig",
+	
+	"providerClass":"fr.hypertable.AppPG",
+	
+	"maxConnections":100,
+	"dbURLX":"jdbc:postgresql://192.168.0.101:5432/alterconsos",
+	"dbURL":"jdbc:postgresql://192.168.0.1:5432/alterconsos",
+	"username":"alterconsos",
+	"password":"lesroses",
+	"providerHasCache":true,
+	"providerWorkers":2,
+	
+	"urlX":"https://test.sportes.fr:8443/ac",
+	"url":"https://alterconsos.appspot.com",
+	"urlY":"http://192.168.0.1:8090",
+	
+	"mailserverX":"simu",
+	"mailserverY":"javamail",
+	"mailserver":"http://alterconsos.fr/tech/server.php",
+	"mailserverZ":"http://alterconsos.sportes.fr/server.php",
+  	"pwdmailer" : "rosesetmarguerites",
+	
+	"adminSender" : "daniel.sportes@gmail.com",
+	"adminMails" : "daniel@sportes.fr domi.colin@laposte.net",
+	
+	"emailfilterX" : "sportes.fr",
+	
+	"adminKey" : "b517ffc9ef3eca23363144e5fab704eaed4349ed"
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test</title>
+<!-- prevent cache -->
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+html {
+	font-size: 65%;
+}
+
+.btn {
+	display: inline-block;
+	border: 1px solid black;
+	margin: 1rem;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 0.5rem;
+}
+
+.btn:hover {
+	background-color: black;
+	color: white;
+}
+
+div {
+	font-family: Verdana, Arial, sans-serif;
+	text-shadow: 0px 0px 0px;
+	font-size: 1.2rem;
+	font-weight: normal;
+	font-style: normal;
+}
+
+#ARG,#RET {
+	border:1px solid blue;
+	padding:0.5rem;
+	margin:0.5rem 0 1rem 2rem;
+}
+
+#RET2,#ARG2 {
+	margin:0.5rem 0 1rem 2rem;
+}
+
+</style>
+<script type="text/javascript" src="jslib/jquery.min.js"></script>
+<script type="text/javascript" src="jslib/sha.js"></script>
+<script type="text/javascript" src="jslib/prettyprint.js"></script>
+<script type="text/javascript">
+var motDePasse = "???";
+var type = 1; // 0:annuaire 1:groupe 2:groupement 
+var grp = 2; // code groupe ou groupement
+var annuaire = 1;
+var alterconsoProducteur = 0;
+
+var arg = {
+	op:"22",
+	gac: 2,
+	code: 1,
+	postitContact : "test4",
+	
+	sync:[{
+		l:"C.2.",
+		c:"0.",
+		t:"GAC",
+		s:"A",
+		version:-9, // récupérer seulement les changements effectués par l'opération (sinon 0)
+		filterKeys:["*+"]
+	}]
+}
+
+var myXhr;
+var start;
+var json;
+
+$(document).ready(function(event) {
+	arg.clientId = 1;
+	arg.trId = new Date().getTime();
+	arg.at = type ? type : -2;
+	arg.ap = SHA1("" + motDePasse + type + (type ? grp : annuaire));
+	if (grp)
+		arg.ag = grp;
+	arg.ad = annuaire;
+	if (alterconsoProducteur)
+		arg.au = alterconsoProducteur;
+	json = JSON.stringify(arg);
+	$("#ARG").text(json);
+	$("#ARG2").html(prettyPrint(arg, {maxDepth:10}));
+	$("#GO").on("click", function() {
+		myXhr = new XMLHttpRequest();
+		myXhr.onreadystatechange = function(){
+			 $("#LAP").html("" + (new Date().getTime() - start));
+			if(myXhr.readyState == 4){
+				$("#RET").text(myXhr.responseText);
+				if (myXhr.responseText.substring(0,1) != "$") {
+					try {
+						var obj = JSON.parse(myXhr.responseText);
+						$("#RET2").html(prettyPrint(obj, {maxDepth:10}));
+					} catch(e) {
+						$("#RET2").text(e);
+					}
+				}
+			}
+		};
+		start = new Date().getTime();
+		myXhr.open("POST", "alterconsos");
+		myXhr.send(json);
+	});
+});
+</script>
+</head>
+<body>
+	<div class="btn" id="GO">GO !</div>
+	<div><b><i>Arguments :</i></b></div>
+	<div id="ARG"></div>
+	<div id="ARG2"></div>
+	<br>
+	<div><b><i>Retour :</i></b> <span id="LAP">?</span>ms</div>
+	<div id="RET">?</div>
+	<div id="RET2">?</div>
+</body>

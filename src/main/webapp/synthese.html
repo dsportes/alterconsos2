@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Alterconsos, synthèse périodique</title>
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="jslib/sha.js"></script>
+<script type="text/javascript" src="js/export.js"></script>
+<link rel="stylesheet" href="js/form.css" type="text/css">
+</head>
+<body>
+<!-- 
+lien direct avec clé : 
+https://alterconsos.appspot.com/alterconsos/export?at=1&ad=1&ag=2&au=2&ap=123456789&op=50
+
+lien avec demande pwd :
+https://alterconsos.appspot.com/export.html?at=1&ad=1&ag=2&au=2&op=50
+-->
+	<div style="display: none" id="genericForm">
+		<form id="form1" method="post" action="">
+			<input type="hidden" id="ad" name="ad" value="0"></input> 
+			<input type="hidden" id="at" name="at" value="0"></input>
+			<input type="hidden" id="ap" name="ap" value="0"></input>
+			<input type="hidden" id="ag" name="ag" value="0"></input>
+			<input type="hidden" id="au" name="au" value="0"></input>
+			<input type="hidden" id="op" name="op" value="0"></input>
+		</form>
+	</div>
+<div style="margin:0 1rem">
+<b>Mot de passe : </b><input id="pwd" type="password"></input>
+</div>
+<div class="btn" onclick="dothejob();">Afficher ma synthèse périodique</div>
+</body>

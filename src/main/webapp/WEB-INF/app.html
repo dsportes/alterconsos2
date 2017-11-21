@@ -1,0 +1,91 @@
+<link rel="shortcut icon" href="images/icon.png">
+<link rel="apple-touch-icon" href="images/icon.png" />
+<link rel="apple-touch-startup-image" href="images/startup.png" />
+<meta name="viewport" content="width=600, initial-scale=1, maximum-scale=2.0, user-scalable=yes">
+<meta http-equiv="content-language" content="fr-FR" />
+<meta name="language" content="fr-FR" />
+<!--[if lt IE 9]>
+<script>
+	window.location = "navigateur.html";
+</script>
+<![endif]-->
+<script type="text/javascript" src="jslib/fastclick.js"></script>
+<script>
+	ISTOUCH = "ontouchstart" in document.documentElement;
+	if(ISTOUCH) {
+		window.addEventListener('load', function() {
+			var scr = document.getElementById('smallscreen');
+			FastClick.attach(scr);
+		});
+	}
+</script>
+<link rel="stylesheet" href="js/app.css" type="text/css">
+<!--[if IE 9]>
+<link rel="stylesheet" href="js/IE9.css" type="text/css">
+<![endif]-->
+<script type="text/javascript" src="jslib/jquery.min.js"></script>
+<script type="text/javascript" src="jslib/jquery.class.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOr-_I_zH87xwnkNkmWIjlzlco2RRAsdA&sensor=false"></script>
+<script type="text/javascript" src="jslib/sha.js"></script>
+<script type="text/javascript" src="jslib/jquery.csv.js"></script>
+<script type="text/javascript" src="js/root.js"></script>
+<script type="text/javascript" src="js/helplinks.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/request.js"></script>
+<script type="text/javascript" src="js/stack.js"></script>
+<script type="text/javascript" src="js/calc2.js"></script>
+<script type="text/javascript" src="js/mvc.js"></script>
+<script type="text/javascript" src="js/livr2.js"></script>
+<script type="text/javascript" src="js/livr3.js"></script>
+<script type="text/javascript" src="js/gacgap.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+
+</head>
+<body>
+	<div id="content">
+		<div id="acAccueil">
+			<img id="acBarPhoto" src='images/icon.png'/>
+			<div id='acTimeInfo'></div>
+			<div id="acIdentite" class="large"></div>
+			<div class="acEnd"></div>
+		</div>
+		<div id='bottom' class='ecran'>
+			<img class='acLogo' src="images/logo-ac-1L.png" />
+		</div>
+	</div>
+	
+	<div id="messageDiv"><div class="inner"></div></div>
+	<div id="iconBar"></div>
+	<div id='acMaskIB'></div>
+	<div id="screen" class='ecran'></div>
+	<div id="smallscreen" class='ecran'></div>
+	<div id="acPanel" class='ecran'></div>
+	<!-- 
+	<iframe id="acIframeReport" src="iframe.html"></iframe>
+	<a id='acSaveLink' hidden download="alterconsos.html"></a>
+	 -->
+	<div id="acHiddenDiv" style="display: none"></div>
+	<div id="mask-element">
+		<div id='mask-erreur'></div>
+	</div>
+	<div id='mask-attente'>
+		<span>Cliquer ici pour interrompre</span>
+		<div class='acSpinner'></div>
+	</div>
+	<div id='acMask'></div>
+	<div id='acMaskB'></div>
+	<div style="display: none" id="genericForm">
+		<form method="post" target="_blank" action="alterconsos/export/addressBook.csv">
+			<input type="hidden" name="ad" value="0"> 
+			<input type="hidden" name="at" value="0">
+			<input type="hidden" name="ap" value="0">
+			<input type="hidden" name="ag" value="0">
+			<input type="hidden" name="au" value="0">
+			<input type="hidden" name="op" value="0">
+			<input type="hidden" name="gr" value="0">
+			<input type="hidden" name="d" value="0">
+			<input type="hidden" name="param" value="0">
+		</form>
+	</div>
+</body>
+</html>

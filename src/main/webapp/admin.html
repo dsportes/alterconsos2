@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TaskManagerPG Alterconsos</title>
+<!-- prevent cache -->
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="jslib/sha.js"></script>
+<script type="text/javascript">
+function postGO(op){
+	var taskid = document.getElementById("TASKID").value;
+	var url = document.getElementById("URL").value;
+	var periode = document.getElementById("PERIODE").value;
+	var pwd = document.getElementById("PWD").value;
+	var xm = SHA1(pwd + "00");
+	var xm2 = SHA1(xm);
+	var myXhr = new XMLHttpRequest();
+	myXhr.onreadystatechange = function(){
+		if(myXhr.readyState == 4){
+			var m = "Status = " + myXhr.status + " - " + myXhr.responseText;
+			// console.log(m);
+			document.getElementById("RET").innerHTML = m.replace(/\n/g, "<br>");
+		}		
+	};
+	myXhr.open("POST", "admin");
+	var req = JSON.stringify({at:-1, ap:xm, op:op, t:taskid, l:url, c:periode});
+	myXhr.send(req + "\n");
+}
+</script>
+<style type="text/css">
+
+html {
+	font-size: 65%;
+}
+
+body {
+	font-family: Verdana, Arial, sans-serif;
+	text-shadow: 0px 0px 0px;
+	font-size: 1.2rem;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.btn {
+	display: inline-block;
+	border: 1px solid black;
+	margin: 1rem;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 0.5rem;
+}
+
+.btn:hover {
+	background-color: black;
+	color: white;
+}
+
+input:focus,textarea:focus {
+	-moz-box-shadow: 0 0 12px #387bbe;
+	-webkit-box-shadow: 0 0 12px #387bbe;
+	box-shadow: 0 0 12px #387bbe;
+	border: 2px outset #387bbe;
+}
+
+input,textarea {
+	font-family: Courier New, Courier, monospace !important;
+	text-shadow: 0px 0px 0px;
+	font-size: 1.4rem;
+	font-weight: normal;
+	font-style: normal;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	width: 300px;
+	padding: 0.2rem 0.5rem;
+	display: block;
+}
+
+</style>
+</head>
+<body>
+	<div>
+	<div class='btn' onclick="window.location = 'app?.r1';">Administration des Annuaires</div>
+	</div>
+	<hr>
+	<div>Mot de passe d'administration :</div>
+	<input id='PWD' type="text"></input>
+	<div>
+	<hr>
+	<div class='btn' onclick="postGO('off');">OFF Alterconsos</div>
+	<div class='btn'  onclick="postGO('on');">ON Alterconsos</div>
+	</div>
+	<hr>
+	<div>
+	<div class='btn' onclick="postGO('tmpause');">Pause TM</div>
+	<div class='btn' onclick="postGO('tmrestart');">Restart TM</div>
+	</div>
+	<hr>
+	<div>
+	<div>taskid :</div>
+	<input id='TASKID' type="text"></input>
+	<div class='btn' onclick="postGO('tmlisttasks');">List Tasks</div>
+	<div class='btn' onclick="postGO('tmruntask');">Run Task (taskid)</div>
+	<div class='btn' onclick="postGO('tmkilltask');">Kill Task (taskid)</div>
+	<div class='btn' onclick="postGO('tmremovetask');">Remove Task (taskid)</div>
+	</div>
+	<hr>
+	<div>
+	<div>url :</div>
+	<input id='URL' type="text"></input>
+	<div>periode :</div>
+	<input id='PERIODE' type="text"></input>
+	<div class='btn' onclick="postGO('tmlistcrons');">List Crons</div>
+	<div class='btn' onclick="postGO('tmreschedcrons');">Reschedule Crons</div>
+	<div class='btn'  onclick="postGO('tmsetcron');">Set Cron (url periode)</div>
+	<div class='btn'  onclick="postGO('tmstartcron');">Start Cron (url)</div>
+	</div>
+	<hr>
+	<div id="RET"></div>
+</body>

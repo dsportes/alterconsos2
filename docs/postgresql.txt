@@ -1,0 +1,79 @@
+pg_hba.conf dans dir d'install de postgresql pour autoriser un accès depuis autre que localhost
+host      all       all         192.168.0.0   255.255.255.255  md5
+
+postrgresql.conf
+listen_adresses = '*'
+
+______________________________________________________
+Passer sous postgresql en test 
+
+enlever dans WEB-INF lib les jar de GAE et y mettre java mail et postgersql
+Changer le build path et recompiler
+
+dans ac.json changer 
+"providerClass":"fr.hypertable.AppPG",
+vérifier les mailers
+changer 	"url":"http://192.168.0.1:8090",
+
+Dans web.xml commenter les security constraints pour ne plus être en https
+
+Vérifier la config de jetty
+Dans acDL l'url devient http://192.168.0.1:8090/ac (ne pas oublier ac)
+
+Lancer PG
+______________________________________________________
+
+DROP TABLE IF EXISTS Cell;
+CREATE TABLE Cell (
+	celltype varchar(16) NOT NULL,
+  	lineid varchar(100) NOT NULL,
+  	columnid varchar(100) NOT NULL,
+  	version bigint NOT NULL,
+  	mime varchar(100),
+  	content bytea NOT NULL,
+  	CONSTRAINT pkc PRIMARY KEY (celltype, lineid, columnid)
+);
+ALTER TABLE Cell OWNER TO "alterconsos";
+
+DROP INDEX IF EXISTS cell_lineid;
+CREATE INDEX cell_lineid on Cell (lineid);
+
+DROP TABLE IF EXISTS Onoff;
+CREATE TABLE Onoff (
+	onoff smallint NOT NULL,
+  	CONSTRAINT pko PRIMARY KEY (onoff)
+);
+ALTER TABLE Onoff OWNER TO "alterconsos";
+
+DROP TABLE IF EXISTS Doc;
+CREATE TABLE Doc (
+  	docid varchar(100) NOT NULL,
+   	version bigint NOT NULL,
+  	content bytea NOT NULL,
+  	CONSTRAINT pkd PRIMARY KEY (docid)
+);
+ALTER TABLE Doc OWNER TO "alterconsos";
+
+DROP TABLE IF EXISTS Task;
+CREATE TABLE Task (
+	taskid varchar(17) NOT NULL,
+  	url varchar(100) NOT NULL,
+  	iscron smallint NOT NULL,
+  	arg1 bytea,
+  	nextstart varchar(12) NOT NULL,
+  	retry smallint NOT NULL,
+   	CONSTRAINT pkt PRIMARY KEY (taskid)
+);
+ALTER TABLE Task OWNER TO "alterconsos";
+DROP INDEX IF EXISTS task_nextstart;
+CREATE INDEX task_nextstart on Task (nextstart);
+DROP INDEX IF EXISTS task_url;
+CREATE INDEX task_url on Task (url, iscron, nextstart);
+
+DROP TABLE IF EXISTS Cron;
+CREATE TABLE Cron (
+  	url varchar(100) NOT NULL,
+  	periode varchar(12) NOT NULL,
+   	CONSTRAINT pkcr PRIMARY KEY (url)
+);
+ALTER TABLE Cron OWNER TO "alterconsos";
