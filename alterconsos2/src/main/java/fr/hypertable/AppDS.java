@@ -200,7 +200,7 @@ public class AppDS implements IProvider {
 			    gzip.close();
 			    bytes = out.toByteArray();
 			}
-			log.log(Level.WARNING, "PUT -DOC : id:" + k + " size:" + bytes.length);
+			// log.log(Level.WARNING, "PUT -DOC : id:" + k + " size:" + bytes.length);
 			beginTransaction(false);
 			Key key = KeyFactory.createKey("DOC", k);
 			Entity entity = new Entity(key);

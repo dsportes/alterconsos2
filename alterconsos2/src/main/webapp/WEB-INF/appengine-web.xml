@@ -8,6 +8,7 @@
 	    To allow App Engine to send multiple requests in parallel specify:
   	-->
 	<threadsafe>true</threadsafe>
+	<url-stream-handler>urlfetch</url-stream-handler>
 	
 	<!-- Configure java.util.logging -->
 	<system-properties>

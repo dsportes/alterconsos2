@@ -239,7 +239,7 @@ public class Catalogue extends Cell {
 			la.insert();
 		}
 		if (!la.livrs.contains(codeLivr)) {
-			log.info("DECL ACTIVE - gap:" + this.gap() + " cLivr:" + codeLivr + " gac:" + gac);
+			// log.info("DECL ACTIVE - gap:" + this.gap() + " cLivr:" + codeLivr + " gac:" + gac);
 			la.livrs.add(codeLivr);
 		}
 		LinkedList<Integer> lst = new LinkedList<Integer>();

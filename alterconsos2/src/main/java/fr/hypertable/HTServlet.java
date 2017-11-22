@@ -243,7 +243,7 @@ public class HTServlet extends HttpServlet {
 			uri = "/app";
 
 		if (uri.startsWith("/alterconsos/ping")) {
-			appCfg.log().log(Level.WARNING, "Ping : [" + appCfg.myUrl() + "]");
+			// appCfg.log().log(Level.WARNING, "Ping : [" + appCfg.myUrl() + "]");
 			ping(req.getQueryString(), resp);
 			return;
 		}
