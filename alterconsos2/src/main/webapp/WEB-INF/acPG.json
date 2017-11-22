@@ -1,14 +1,14 @@
 { 
 	"maintenant":0, 
-	"build":"373",
+	"build":"413", 
 	
 	"configClass":"fr.alterconsos.AppConfig",
 	
 	"providerClass":"fr.hypertable.AppPG",
 	
 	"maxConnections":100,
-	"dbURLX":"jdbc:postgresql://192.168.0.101:5432/alterconsos",
-	"dbURL":"jdbc:postgresql://192.168.0.1:5432/alterconsos",
+	"dbURLX":"jdbc:postgresql://192.168.0.101:5433/alterconsos",
+	"dbURL":"jdbc:postgresql://192.168.0.1:5433/alterconsos",
 	"username":"alterconsos",
 	"password":"lesroses",
 	"providerHasCache":true,
