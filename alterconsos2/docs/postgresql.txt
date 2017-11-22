@@ -1,26 +1,69 @@
-pg_hba.conf dans dir d'install de postgresql pour autoriser un accès depuis autre que localhost
-host      all       all         192.168.0.0   255.255.255.255  md5
+==============================================================
+LA RESTAURATION DES REPORTS ne fonctionne pas : DEBUG à faire.
+Tout ce qui est Task/Cron est à retester complètement.
+==============================================================
 
-postrgresql.conf
+Dans c:\pgdata-10\pg_hba.conf
+
+host	all	all	192.168.1.10   255.255.255.255  trust
+# IPv4 local connections:
+host	all	all	127.0.0.1/32            	trust
+# IPv6 local connections:
+host	all	all	::1/128				trust
+
+
+Remplir le fichier C:\Users\Domi\AppData\Roaming\postgresql\pgpass.conf qui donne les passwords :
+
+localhost:5432:*:postgres:nonuke
+192.168.1.10:5432:*:postgres:nonuke
+localhost:5433:*:postgres:nonuke
+192.168.1.10:5433:*:postgres:nonuke
+
+Dans c:\pgdata-10\postrgresql.conf
 listen_adresses = '*'
-
-______________________________________________________
+_____________________________________________________
 Passer sous postgresql en test 
 
-enlever dans WEB-INF lib les jar de GAE et y mettre java mail et postgersql
-Changer le build path et recompiler
-
-dans ac.json changer 
-"providerClass":"fr.hypertable.AppPG",
-vérifier les mailers
-changer 	"url":"http://192.168.0.1:8090",
+Dans ac.json changer 
+	"providerClass":"fr.hypertable.AppPG",
+	"url":"https://test.sportes.fr:8443/ac",
+Eventuellement :
+	"mailserver":"http://alterconsos.sportes.fr/server.php",
 
 Dans web.xml commenter les security constraints pour ne plus être en https
 
-Vérifier la config de jetty
+Vérifier la config de jetty dans C:\eclipse\jetty\webapps\ac.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd"> 
+<Configure id="acWebapp" class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/ac</Set>
+  <!--Set name="war"><Property name="jetty.webapps" default="."/>/ac.war</Set-->
+  <Set name="war"><Property name="jetty.webapps" default="."/>/../../git/alterconsos2/alterconsos2/src/main/webapp</Set>
+  <Set name="gzipHandler">
+    <New class="org.eclipse.jetty.server.handler.gzip.GzipHandler">
+      <Set name="minGzipSize">2048</Set>      
+    </New>
+  </Set>
+</Configure>
+
+Configuration de nginx dans C:\nginx-1.9.15\conf\nginx.conf
+location /ac { proxy_pass http://192.168.1.10:8090/ac; }
+
 Dans acDL l'url devient http://192.168.0.1:8090/ac (ne pas oublier ac)
 
+Enlever dans WEB-INF/lib les jar de GAE et y mettre java mail et postgresql
+
+Créer un lien symbolique de WEB-INF/classes sur build/classes
+C:\eclipse\git\alterconsos2\alterconsos2\src\main\webapp\WEB-INF>mklink /D classes ..\..\..\..\build\classes
+Lien symbolique créé pour classes <<===>> ..\..\..\..\build\classes
+
+Lancer nginx
 Lancer PG
+
+Les URLs sont :
+https://test.sportes.fr:8443/ac
+http://192.168.1.10:8080/ac
 ______________________________________________________
 
 DROP TABLE IF EXISTS Cell;

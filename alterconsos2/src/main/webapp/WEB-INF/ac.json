@@ -5,11 +5,11 @@
 	
 	"configClass":"fr.alterconsos.AppConfig",
 	
+	"providerClassX":"fr.hypertable.AppPG",
 	"providerClass":"fr.hypertable.AppDS",
 	
 	"maxConnections":100,
-	"dbURLX":"jdbc:postgresql://192.168.0.101:5433/alterconsos",
-	"dbURL":"jdbc:postgresql://192.168.0.1:5433/alterconsos",
+	"dbURL":"jdbc:postgresql://192.168.1.10:5433/alterconsos",
 	"username":"alterconsos",
 	"password":"lesroses",
 	"providerHasCache":true,
@@ -17,12 +17,11 @@
 	
 	"urlX":"https://test.sportes.fr:8443/ac",
 	"url":"https://alterconsos.appspot.com",
-	"urlY":"http://localhost:8090",
 	
 	"mailserverX":"simu",
 	"mailserverY":"javamail",
-	"mailserver":"http://alterconsos.fr/tech/server.php",
 	"mailserverZ":"http://alterconsos.sportes.fr/server.php",
+	"mailserver":"http://alterconsos.fr/tech/server.php",
   	"pwdmailer" : "rosesetmarguerites",
 	
 	"adminSender" : "daniel.sportes@gmail.com",
