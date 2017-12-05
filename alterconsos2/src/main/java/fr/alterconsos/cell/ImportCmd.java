@@ -74,8 +74,8 @@ public class ImportCmd extends Operation {
 				workbook = WorkbookFactory.create(new ByteArrayInputStream(bytes));
 			    sheet = workbook.getSheetAt(0);
 				if (sheet == null) return end("Fichier transmis corrompu (Excel, pas d'onglet).");
-			} catch (Exception e) {
-				return end("Fichier transmis non Excel.");
+			} catch (Throwable t) {
+				return end("Fichier transmis ni .xls ni .xlsx ou corrompu. (" + t.getMessage() + ")");
 			}
 			
 			Row row = sheet.getRow(2);
