@@ -3875,7 +3875,7 @@ AC.Bdl._proto = {
 			sb.append("<div class='barTop2'>Produits froids</div>");
 			if (!this.paintContent2(sb, 1)){
 				sb.append("<div class='acSpace5'></div>");
-				sb.append("<div class='barTop2' style='page-break-before:always;'>Produits secs</div>");
+				sb.append("<div class='barTop2 dopagebreakbefore'>Produits secs</div>");
 			} else {
 				sb.append("<div class='italic'>Aucun produit froid ne correspond aux critères de sélection</div>");
 				sb.append("<div class='acSpace5'></div>");
@@ -5163,7 +5163,7 @@ AC.ChgCa._proto = {
 			sb.append("<div class='barTop2'>Produits froids : ");
 			sb.append(INT.editKgA(this.pTotN[0]) + "</div>");
 			if (!this.paintContent2(sb, this.froids)){
-				sb.append("<div class='barTop2' style='page-break-before:always;'>Produits secs : ");
+				sb.append("<div class='barTop2 dopagebreakbefore'>Produits secs : ");
 				sb.append(INT.editKgA(this.pTotN[1]) + "</div>");
 			} else {
 				sb.append("<div class='italic'>Aucun produit ne correspond aux critères de sélection</div>");
@@ -5329,7 +5329,7 @@ AC.ChgCa._proto = {
 	},
 	
 	paintContent3 : function(sb, ctlg, eltGac){
-		sb.append("<div class='detail' style='page-break-before:always;'>");
+		sb.append("<div class='detail dopagebreakbefore'>");
 		sb.append("<div class='acSpace2 titreGac'>" + Util.editEltH(eltGac) + "</div>");
 		var vide = true;
 		var gac = eltGac.code;

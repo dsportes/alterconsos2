@@ -4672,7 +4672,7 @@ AC.EcGapGacAc._proto = {
 				if (!prems) {
 					AC.Compta.space1(sb);
 					sb.append("</div>");
-					sb.append("<div style='page-break-before:always;font-size:0'>&nbsp;</div>");
+					sb.append("<div class='dopagebreakbefore' style='font-size:0'>&nbsp;</div>");
 					sb.append("<div class='acTB3'>");
 				}
 				sb.append(AC.Compta.titreAc(x.elt, x, false, true));
@@ -4933,7 +4933,7 @@ AC.EcAp._proto = {
 			this.livrC = x.livrC;
 			this.cellGac = this.livrC.cellGac;
 			this.slivr = this.livrC.slivr;
-			sb.append("<div style='page-break-before:always;'></div>");
+			sb.append("<div class='dopagebreakbefore' ></div>");
 			sb.append(this.paintContentLoc());
 		}
 		

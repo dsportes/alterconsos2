@@ -2508,7 +2508,9 @@ AC.PrintBox2._proto = {
 		var y = "src=\"" + APP.origin;
 		var x = html.replace(/src=\"\alterconsos/g, y + "/alterconsos")
 			.replace(/src=\"\images/g,	y + "/images");
-		sb.append(this._rpb.val() ? x.replace(/page-break-before:always;/g, '') : x);
+		if (this._rpb.val())
+			x = x.replace(/dopagebreakbefore/g, 'nopagebreakbefore');
+		sb.append(x);
 	},
 	
 	scDefSize : function(pb){

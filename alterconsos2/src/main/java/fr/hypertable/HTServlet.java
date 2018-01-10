@@ -101,7 +101,8 @@ public class HTServlet extends HttpServlet {
 			defaultImage = getResource(ctx, "/images/default-64x64.jpg");
 			defaultExcel = getResource(ctx, "/WEB-INF/default.xls");
 			appHtml = getResource(ctx, "/WEB-INF/app.html");
-			arg = AcJSON.parseObjectEx(new String(getResource(ctx, "/WEB-INF/ac.json"), "ISO-8859-1"));
+			byte[] acjson = getResource(ctx, "/WEB-INF/ac.json");
+			arg = AcJSON.parseObjectEx(new String(acjson, "ISO-8859-1"));
 		} catch (Exception e) { 
 			log.log(Level.SEVERE, e.getMessage());
 			throw new ServletException(e);			

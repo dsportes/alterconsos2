@@ -1,3 +1,6 @@
+netstat -aon | findstr 8090
+(le pid est à la fin)
+taskkill /PID 26356 /F
 ==============================================================
 LA RESTAURATION DES REPORTS ne fonctionne pas : DEBUG à faire.
 Tout ce qui est Task/Cron est à retester complètement.

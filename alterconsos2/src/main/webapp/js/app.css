@@ -18,6 +18,16 @@ html { font-size: 65%; }
 @font-face {font-family: "MaFonteS"; src: url("../fonts/Montserrat-Regular.ttf");}
 @font-face {font-family: "MaFonteS"; src: url("../fonts/Montserrat-Bold.ttf"); font-weight: bold;}
 
+.dopagebreakbefore {
+	page-break-before: always;
+	break-before: page;
+}
+
+.nopagebreakbefore {
+	page-break-before: avoid;
+	break-before: avoid;
+}
+
 body {
 	overflow-y: scroll;
 	overflow-x: auto;
