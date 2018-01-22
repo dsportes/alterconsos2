@@ -4412,7 +4412,7 @@ AC.Compta._proto = {
 			sb2.append();
 			var conv = new AC.Conv(y.pd, cv,  this.cellLivrC.reduc);
 			if (y.pd.type == 2 && y.x.lprix){
-				if (y.x.lprix.length > 1)
+				if (y.x.lprix.length > 0 )
 					for (var n = 0, prx = 0; prx = y.x.lprix[n]; n++) {
 						var po = conv.e2p(prx).res;
 						sb2.append("<br><i>" + INT.editE(prx) + "&nbsp;" + INT.editKg(po) + "</i>");
