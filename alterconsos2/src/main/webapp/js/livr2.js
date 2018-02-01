@@ -2879,8 +2879,19 @@ AC.Bdc._proto = {
 	lvGAC : function(t, slivr, elt){
 		if (slivr.statut == 2){
 			t.append("<div class='acsIL'>Limite " + AC.AMJ.dateTCourte(slivr.livr.limite));
-			if (slivr.livr.hlimite)
-				t.append(" à " + slivr.livr.hlimite + "h");
+			if (slivr.livr.hlimite) {
+				var hx = slivr.livr.hlimite;
+				var hy = hx > slivr.hlimac ? hx - slivr.hlimac : 1;
+				if (APP.Ctx.authUsr && slivr.hlimac)
+					t.append(" à " + hy + "h"); 
+				else {
+					t.append(" à " + hx + "h");
+					if (hx != hy)
+						t.append(" (" + hy + "h pour les AC)");
+				}	
+			}
+//			if (slivr.livr.hlimite)
+//				t.append(" à " + slivr.livr.hlimite + "h");
 			t.append("; </div>");
 		}
 		var jjd = AC.AMJ.dateTCourte(slivr.distrib);
