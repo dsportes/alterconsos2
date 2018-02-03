@@ -1,6 +1,10 @@
-netstat -aon | findstr 8090
+netstat -aon | findstr 8090 // Windows
 (le pid est à la fin)
 taskkill /PID 26356 /F
+
+netstat -nlp | grep :8090 // Linux
+kill 9999
+
 ==============================================================
 LA RESTAURATION DES REPORTS ne fonctionne pas : DEBUG à faire.
 Tout ce qui est Task/Cron est à retester complètement.

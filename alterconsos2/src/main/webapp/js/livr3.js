@@ -5250,12 +5250,12 @@ AC.EcAp2._proto = {
 
 	paintLine : function(sb, x, isTot) {
 		if (!isTot) {
-			var b1 = x.qteS != x.qte;
+			var b1 = x.qteS != x.qteD;
 			var sp1 = "<span" + (b1 ? " class='red'>[ " : ">");
 			var sp2 = b1 ? " ]</span>" : "</span>";
 			var c = sp1 + (x.pd.parDemi ? INT.demi(x.qteS) : x.qteS) + sp2;
 			if (b1)
-				c += "<br>" + (x.pd.parDemi ? INT.demi(x.qte) : x.qte);
+				c += "<br>" + (x.pd.parDemi ? INT.demi(x.qteD) : x.qteD);
 			sb.append("<div class='acTDc2'>" + c + "</div>");
 		} else
 			sb.append("<div class='acTDc2'>&nbsp;</div>");
