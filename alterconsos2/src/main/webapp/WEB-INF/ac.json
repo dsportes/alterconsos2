@@ -20,9 +20,9 @@
 	
 	"mailserverX":"simu",
 	"mailserverY":"javamail",
-	"mailserverZ":"http://alterconsos.sportes.fr/server.php",
-	"mailserver":"http://alterconsos.fr/tech/server.php",
-  	"pwdmailer" : "rosesetmarguerites",
+	"mailserverZ":"http://alterconsos.sportes.fr/server2.php",
+	"mailserver":"http://alterconsos.fr/tech/server2.php",
+  	"pwdmailer" : "rosesetmarguerites", 
 	
 	"adminSender" : "daniel.sportes@gmail.com",
 	"adminMails" : "daniel@sportes.fr domi.colin@laposte.net",
