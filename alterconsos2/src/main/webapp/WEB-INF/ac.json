@@ -20,8 +20,8 @@
 	
 	"mailserverX":"simu",
 	"mailserverY":"javamail",
-	"mailserver":"http://alterconsos.sportes.fr/server2.php",
-	"mailserverZ":"http://alterconsos.fr/tech/server2.php",
+	"mailserverZ":"http://alterconsos.sportes.fr/server3m.php",
+	"mailserver":"http://alterconsos.fr/tech/server3s.php",
   	"pwdmailer" : "rosesetmarguerites", 
 	
 	"adminSender" : "daniel.sportes@gmail.com",
