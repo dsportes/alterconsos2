@@ -757,4 +757,10 @@ public class AppPG implements IProvider {
 		return taskid == null ? false : TaskManagerPG.getTM().isToStop(taskid); 
 	}
 
+	@Override
+	public int purgeDocument(long version) throws AppException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

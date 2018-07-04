@@ -45,6 +45,7 @@ public class AppTransactionAdmin extends AppTransaction {
 		String type = getArg().getS("t", null);
 		String line = getArg().getS("l", null);
 		String col = getArg().getS("c", null);
+		long nj = getArg().getL("nj", 0);
 		
 		if (op.startsWith("tm")) {
 			try {
@@ -83,6 +84,24 @@ public class AppTransactionAdmin extends AppTransaction {
 			return;
 		}
 
+		if ("purgedocs".equals(op)) {
+			String report = "";
+			if (nj <= 0) {
+				report = "aucun document supprimé";
+			} else {
+				long version = System.currentTimeMillis() - (86400000 * nj);
+				int n = provider().purgeDocument(version);
+				report = n + " document(s) supprimé(s)"; 
+			}
+			getResultat().content = report;
+			getResultat().brut = true;
+			getResultat().mime = "application/json";
+			status = 0;
+			release();
+			return;
+		}
+
+		
 		if ("linesS".equals(op)) {
 			Filter f = new Filter(line);
 			LinkedList<String> lst = new LinkedList<String>();

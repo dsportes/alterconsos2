@@ -16,6 +16,7 @@ public interface IProvider {
 	public boolean getOnOff();
 	public byte[] getDocument(String k) throws AppException;
 	public void putDocument(long version, String k, byte[] bytes) throws AppException;
+	public int purgeDocument(long version) throws AppException;
 	
 	public void beginTransaction(boolean multi) throws AppException ;
 	public void rollBack();

@@ -26,6 +26,8 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 //import com.google.appengine.api.memcache.MemcacheService;
 //import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.taskqueue.Queue;
@@ -190,6 +192,18 @@ public class AppDS implements IProvider {
 		transaction = null;
 	}
 
+	public int purgeDocument(long version) throws AppException {
+		FilterPredicate propertyFilter = new FilterPredicate("version", FilterOperator.LESS_THAN_OR_EQUAL, version);
+		Query q = new Query("DOC").setFilter(propertyFilter);
+		PreparedQuery pq = this.ds().prepare(q);
+		int n = 0;
+		for (Entity result : pq.asIterable()) {
+			ds().delete(result.getKey());
+			n++;
+		}
+		return n;
+	}
+	
 	@Override public void putDocument(long version, String k, byte[] bytes) throws AppException{
 		try {
 			boolean gz = bytes.length > 500000;

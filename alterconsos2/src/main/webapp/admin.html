@@ -11,6 +11,10 @@
 function postGO(op){
 	var taskid = document.getElementById("TASKID").value;
 	var url = document.getElementById("URL").value;
+	var nj = 0;
+	var x = document.getElementById("NJ").value;
+	if (x)
+		nj = parseInt(x, 10);
 	var periode = document.getElementById("PERIODE").value;
 	var pwd = document.getElementById("PWD").value;
 	var xm = SHA1(pwd + "00");
@@ -24,7 +28,7 @@ function postGO(op){
 		}		
 	};
 	myXhr.open("POST", "admin");
-	var req = JSON.stringify({at:-1, ap:xm, op:op, t:taskid, l:url, c:periode});
+	var req = JSON.stringify({at:-1, ap:xm, op:op, t:taskid, l:url, c:periode, nj:nj});
 	myXhr.send(req + "\n");
 }
 </script>
@@ -93,6 +97,12 @@ input,textarea {
 	<hr>
 	<div class='btn' onclick="postGO('off');">OFF Alterconsos</div>
 	<div class='btn'  onclick="postGO('on');">ON Alterconsos</div>
+	</div>
+	<hr>
+	<div>
+	<div>Plus vieux que N jours :</div>
+	<input id='NJ' type="text"></input>
+	<div class='btn' onclick="postGO('purgedocs');">Purge old docs</div>
 	</div>
 	<hr>
 	<div>

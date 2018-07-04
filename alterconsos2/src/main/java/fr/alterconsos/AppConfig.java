@@ -91,7 +91,7 @@ public class AppConfig implements IAppConfig {
 			Tweets.cellDescr, Catalogue.cellDescr, LivrC.cellDescr, LivrP.cellDescr, LivrG.cellDescr,
 			TraceMail.cellDescr, StatsMail.cellDescr, TaskMail.cellDescr, Hebdos2.cellDescr, Stats.cellDescr};
 
-	private static final String[] args = { "Iad", "Iat", "Iag", "au", "ap", "op", "Id", "cle", "Igr", "param" };
+	private static final String[] args = { "Iad", "Iat", "Iag", "au", "ap", "op", "Id", "cle", "Igr", "Inj", "param" };
 
 	private static final int maxRetries = 2;
 
