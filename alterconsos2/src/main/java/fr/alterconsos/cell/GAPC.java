@@ -258,8 +258,22 @@ public abstract class GAPC extends Cell implements IGrp {
 			for(GContact c : lst){
 				String em = c.email1;
 				if (em != null && em.contains(filter)) {
-					String em2 = em.replaceAll("\n", "; ");
-					sb.append("[" + initG + "] [" + c.initiales + "] " + c.nom + " ==> " + em2);
+					String[] emx = em.split("\n");
+					StringBuffer sb2 = new StringBuffer();
+					for(String s : emx) {
+						String ss = s.trim();
+						if (ss.length() != 0) {
+							if (sb2.length() != 0) sb2.append(",");
+							sb2.append(ss);
+						}
+					}
+					String x = "[" + initG + "]\t[" + c.initiales + "]\t" + c.nom + "\t" + sb2.toString() + "\n";
+					for(String s : emx) {
+						if (s.contains(filter))
+							sb.append(s.trim() + "\t" + x);
+					}
+//					String em2 = em.replaceAll("\n", "; ");
+//					sb.append("[" + initG + "] [" + c.initiales + "] " + c.nom + " ==> " + em2);
 				}
 			}
 		}
