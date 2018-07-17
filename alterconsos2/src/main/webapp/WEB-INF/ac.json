@@ -1,7 +1,7 @@
 { 
 	"maintenantX":17050101, 
 	"maintenant":0, 
-	"build":"418", 
+	"build":"420", 
 	
 	"configClass":"fr.alterconsos.AppConfig",
 	
@@ -20,9 +20,10 @@
 	
 	"mailserverX":"simu",
 	"mailserverY":"javamail",
-	"mailserverZ":"http://alterconsos.sportes.fr/server3m.php",
-	"mailserver":"http://alterconsos.fr/tech/server3s.php",
-  	"pwdmailer" : "rosesetmarguerites", 
+	"mailserverZ":"http://alterconsos.sportes.fr/server3.php",
+	"mailserver":"http://alterconsos.fr/tech/server3.php",
+  	"mdps":{"A":"les_ROSES_2018", "B":"les_ROSES_2018"},
+  	"smtp":true,
 	
 	"adminSender" : "daniel.sportes@gmail.com",
 	"adminMails" : "daniel@sportes.fr domi.colin@laposte.net",

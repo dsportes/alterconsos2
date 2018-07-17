@@ -78,8 +78,10 @@ public class AppConfig implements IAppConfig {
 
 	private static String mailserver;
 	
-	private static String pwdmailer;
-	
+	private static AcJSONObject mdps;
+
+	public static boolean SMTP = false;
+
 	public static final boolean VERBOSE = true;
 
 	public static final TimeZone timezone = TimeZone.getTimeZone("Europe/Paris");
@@ -363,7 +365,8 @@ public class AppConfig implements IAppConfig {
 			if (mailserver.startsWith("javamail"))
 				loadMailProps();
 			adminSender = arg.getS("adminSender", "");
-			pwdmailer = arg.getS("pwdmailer", "");
+			SMTP = arg.getB("smtp");
+			mdps = arg.getO("mdps", true);
 			adminKey = arg.getS("adminKey", "");
 			String x = arg.getS("emailfilter", null);
 			emailfilter = x == null ? new String[0] : x.split(" ");
@@ -489,6 +492,7 @@ public class AppConfig implements IAppConfig {
 			throws MailServerException {
 		boolean ping = url == null;
 		String base = mailserver();
+		String mdp = mdps.getS(mailer, "mdpinconnu");
 		if (base.startsWith("simu")) {
 			try { Thread.sleep(1000);} catch (InterruptedException e) {}
 			if (ping)
@@ -521,10 +525,12 @@ public class AppConfig implements IAppConfig {
 					sb.append("&subject=");
 					sb.append(URLEncoder.encode((emailfilter.length != 0 ? "[TEST ENVOI MAILS] - " : "")
 							+ subject, "UTF-8"));
+					sb.append("&mdp=");
+					sb.append(URLEncoder.encode(mdp, "UTF-8"));
+					if (SMTP)
+						sb.append("&smtp=1");
 					sb.append("&text=");
 					sb.append(URLEncoder.encode(text, "UTF-8"));
-					sb.append("&cle=");
-					sb.append(URLEncoder.encode(pwdmailer, "UTF-8"));
 					body = sb.toString().getBytes("UTF-8");
 				}
 				// String u = base + (ping ? "/ping" : url);
