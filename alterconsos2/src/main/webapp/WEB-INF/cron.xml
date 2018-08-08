@@ -3,13 +3,13 @@
   <cron>
     <url>/cron/Hebdos2/1</url>
     <description>Envoi des mails hebdomadaires</description>
-    <schedule>every day 03:00</schedule>
+    <schedule>every day 05:00</schedule>
     <timezone>Europe/Paris</timezone>
   </cron>
   <cron>
     <url>/cron/TaskArchive/0</url>
     <description>Archivage des livraisons</description>
-    <schedule>every monday 05:00</schedule>
+    <schedule>every monday 04:00</schedule>
     <timezone>Europe/Paris</timezone>
   </cron>
   <cron>
