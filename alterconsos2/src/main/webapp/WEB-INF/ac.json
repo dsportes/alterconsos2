@@ -1,7 +1,7 @@
 { 
 	"maintenantX":17050101, 
 	"maintenant":0, 
-	"build":"420", 
+	"build":"422", 
 	
 	"configClass":"fr.alterconsos.AppConfig",
 	
@@ -17,6 +17,12 @@
 	
 	"urlX":"http://192.168.1.10:8090",
 	"url":"http://alterconsos.appspot.com",
+	"url4mail":"http://alterconsos.fr",
+	
+	"contacts": [
+	"Pour toutes les questions générales sur Alterconsos, son histoire, etc.</i> Isabelle Suzanne-M'Benque : <a href='mailto:isabelle@alterconsos.net'>isabelle@alterconsos.net</a> - 06 60 90 46 13",
+	"Pour toutes les questions techniques, difficultés de connexion, anomalies présumées etc.</i> Daniel Sportes : <a href='mailto:daniel.sportes@laposte.net'>daniel@sportes.fr</a> - 06 20 45 35 13"
+	],
 	
 	"mailserverX":"simu",
 	"mailserverY":"javamail",

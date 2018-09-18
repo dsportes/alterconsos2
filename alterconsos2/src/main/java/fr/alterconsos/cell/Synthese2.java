@@ -1,7 +1,5 @@
 package fr.alterconsos.cell;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,18 +23,16 @@ public class Synthese2 {
 			sb.append(AS.escapeHTML(s));
 	}
 
-	private static String[] htmls = new String[0];
 	private static final SimpleDateFormat sdfl = new SimpleDateFormat("EEEE d", Locale.FRANCE);
 	private static final SimpleDateFormat sdflc = new SimpleDateFormat("EEEE d MMMM", Locale.FRANCE);
 	private static final SimpleDateFormat sdfd2 = new SimpleDateFormat("EEEE d MMMM yyyy à HH:mm", Locale.FRANCE);
-
+	
 	static {
 		sdfl.setTimeZone(AppConfig.timezone);
 		sdflc.setTimeZone(AppConfig.timezone);
 		sdfd2.setTimeZone(AppConfig.timezone);
 	}
 
-	private String acapp = "/app?";
 	
 	private int dir;
 	// private Directory[] dirs;
@@ -49,22 +45,16 @@ public class Synthese2 {
 	private boolean unclicC;
 	// private GAPC.GContact usr1;
 	private String adresse = null;
-	private String usrLogin;
 	private String usrLoginMP;
-	private String usrLoginURL;
 	private String usrLabel;
 	private String usrInit;
 	private int authType;
 	private int mode;
 	private SimpleDateFormat sdf1;
-	private String myUrl;
 	private String myAuth;
 	private GAPC gapc;
-	private String excelName;
 	private String subject;
 	private String text;
-	private boolean purHebdo = false;
-	private boolean withTitle = false;
 	private String dateDuJour;
 	private int dateDuJourI;
 	private int lundiSP; // semaine précédente
@@ -73,8 +63,6 @@ public class Synthese2 {
 	private boolean noLivr = false;
 	private Directory.Entry entry = null;
 	
-	private int j = 0;
-
 	private static final String[] mois = {"", "janvier", "février", "mars", "avril", "mai", "juin",
 		"juillet", "août", "septembre", "octobre", "novembre", "décembre"};
 	
@@ -97,17 +85,10 @@ public class Synthese2 {
 		entry = Directory.entryG(this.authType, this.grp);
 		//dir = tr.myDir();
 		dir = entry != null ? entry.dirmail() : 0;
-		myUrl = HTServlet.appCfg.myUrl();
-		if (htmls.length == 0)
-			htmls = HTServlet.templateSH().split("\\$\\$");
 	}
 
 	public boolean noLivr(){
 		return noLivr;
-	}
-
-	public boolean isEmpty(){
-		return cpts.size() == 0 || dir == 0;
 	}
 	
 	private static final String[] jours = {"", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
@@ -115,8 +96,6 @@ public class Synthese2 {
 	public String getSynthese(String subject, String text, boolean purHebdo, boolean withTitle) throws AppException {
 		this.subject = subject;
 		this.text = text;
-		this.purHebdo = purHebdo;
-		this.withTitle = withTitle;
 		
 		myAuth = "?at=" + authType + "&ad=" + authType + "&ag=" + grp + (!isGrp ? "&au=" + usr : "");
 		// egrp = (Entry) dir.entry(authType, grp);
@@ -133,21 +112,18 @@ public class Synthese2 {
 			usrLoginMP = "a" + dir + ".r" + (authType == 1 ? 3 : 5) + ".g" + grp + ".u" + usr;
 		else
 			usrLoginMP = "a" + dir + ".r" + (authType == 1 ? 4 : 6) + ".g" + grp ;			
-		usrLoginURL = dir + "/" + authType + "/" + grp + "/" + usr + "/" + (unclicC ? usrC.ci1() : 0);
-		usrLogin = usrLoginMP;
 		if (unclicC && usrC.ci1() != 0) {
-			usrLogin = usrLoginMP + ".c0" + usrC.ci1();
 			myAuth += "&ap=" + usrC.ci1();
 		}
 		usrLabel = usr == 0 ? egrp.label() : usrC.nom();
 		usrInit = usr == 0 ? egrp.initiales() : usrC.initiales();
-		excelName = "_" + usrInit + ".xls";
 		
 		StringBuffer sb = new StringBuffer();
 		
 		entete(sb);
 		
 		boolean hasLignes = false;
+		
 		// int lastLu = 0;
 		int lastd = 0;
 		for (Cpt cpt : cpts) {
@@ -162,51 +138,24 @@ public class Synthese2 {
 			if (d != lastd) {
 			// if (lu != lastLu) {
 				if (!hasLignes) {
-					sb.append("<table style='font-size:12px;border-style:none;border-collapse:collapse;width:95%;padding:3px'>");
+					sb.append("<table style='font-size:12px;border-style:none;border-collapse:collapse;width:100%;padding:3px'>");
 					hasLignes = true;
 				}
-				sb.append("\n<tr style='vertical-align:top'><td colspan='2' style='padding-top:16px;color:blue;" +
-						"text-decoration:underline'><a target='_blank' href='").append(myUrl).append(acapp);
-				sb.append(usrLogin).append(".d").append(d).append("'><b><i>");
+				sb.append("\n<tr style='vertical-align:top;background-color:#37474F;color:white;'><td colspan='3' style='padding:5px;'>");
 				int js = HTServlet.appCfg.getDayOfWeek(d);
 				int jj = d % 100;
 				int mm = (d / 100) % 100;
 				sb.append(jours[js] + " ");
 				sb.append(jj == 1 ? "1er" : jj).append(" ").append(mois[mm]);
-				sb.append(" [Entrée directe]</i></b></a>");
-				
-				if (mode >= 2) {
-					sb.append("<a style='position:relative;padding:0 0 0 20px;margin-left:24px' target='_blank' href='")
-					.append(myUrl);
-					if (unclicC)
-						sb.append("/alterconsos/export/AC_").append(lu).append(excelName).append(myAuth);
-					else
-						sb.append("/export.html").append(myAuth).append("&sn=").append(usrInit);
-					sb.append("&d=").append(d).append("&op=54'");
-					sb.append(" target='_blank'>Export total<img src='images/excel16.png' " +
-							"style='cursor:pointer;position:relative;top:2px'></img></a>");
-					if (isGrp) {
-						sb.append("<a style='position:relative;padding:0 0 0 20px;margin-left:24px' target='_blank' href='")
-						.append(myUrl);
-						if (unclicC)
-							sb.append("/alterconsos/export/AC_").append(lu).append(excelName).append(myAuth);
-						else
-							sb.append("/export.html").append(myAuth).append("&sn=").append(usrInit);
-						sb.append("&d=").append(d).append("&op=58'");
-						sb.append(" target='_blank'>Export détaillé par AC<img src='images/excel16.png' " +
-								"style='cursor:pointer;position:relative;top:2px'></img></a>");
-					}
-				}
-
-				sb.append("</td><td></td></tr>");
+				sb.append("</td></tr>");
 				
 				if (authType == 2) {
 					try {
 						Tweet[] tws = Tweets.get(l.gap()).getTweets(l, 1, 0);
 						if (tws.length > 0) {
-							sb.append("<td></td><td>");
+							sb.append("\n<tr style='vertical-align:top;background-color:white;color:black;'><td colspan='3' style='padding:5px;'><td>");
 							editTweets(sb, tws);
-							sb.append("</td><td></td>");
+							sb.append("</td></tr>");
 						}
 					} catch (AppException e1) {
 				}
@@ -228,90 +177,54 @@ public class Synthese2 {
 			return "";
 		} else {
 			String txt = sb.toString();
-			txt = txt.replaceAll("src='images", "src='" + myUrl + "/images");
 			return txt;
 		}
 	}
-	
-	private void next(StringBuffer sb){
-		String s;
-		while ((s = htmls[j++]) == null){}
-		sb.append(s);
-	}
-	
+		
 	private static String[] libs = {"", "Groupement ", "Groupe ", ""};
 	
-	private void entete(StringBuffer sb) {
-		next(sb);
-		if (subject != null)
-			escapeHTML(sb, subject);
-		else
-			sb.append("Alterconsos, synthèse hebdomadaire");
-		
-//		next(sb);
-//		sb.append(myUrl);
+	
+	private static final String h1 = "<!DOCTYPE html>\n<html>\n<head>\n<title>";
+	private static final String h2 = "</title>\n<meta http-equiv='cache-control' content='no-cache'>\n<meta http-equiv='pragma' content='no-cache'>\n" +
+		"<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n</head>\n<body>\n" +
+		"<div style='font-size:12px;font-family:Verdana,Arial,sans-serif;text-shadow:0px 0px 0px;font-weight:normal;font-style:normal;'>";
+	public static final String h3 = 
+		"<div style='font-size:12px;'>Message envoyé par l'application Alterconsos. Ne pas <i>Répondre</i> mais <b>écrire à l'adresse de vos animateurs / animatrices</b> figurant en bas de ce message.</div>\n" +
+		"<div style='margin:20px 20%;font-size:13px;background-color:#D84315;padding:5px;text-align:center;'><a style='text-decoration:none!important;color:white!important;' href='";
+	public static final String h4 = "' target='_blank'><span style='font-size:20px'>Pour commander</span> ou modifier votre profil<br>accès direct à votre compte<br><span style='text-decoration:underline!important;'>";
+	public static final String h5 = "</span></a></div>\n";
 
-		next(sb);
-		if (withTitle){
-			sb.append("<div style='font-size:13px;font-weight:bold'>Sujet : ");
-			if (subject != null)
-				escapeHTML(sb, subject);
-			else
-				sb.append("Alterconsos, synthèse hebdomadaire");
-			sb.append("<br>&nbsp;</div>");
-		}
+	private static final String h90 = "<div style='font-size:11px;font-weight:bold;border-top:1px solid grey;margin-top:16px'>Contacter des animateurs</div>\n" +
+			"<ul style='font-size:11px;'>\n" ;
+	private static final String h91 = "</ul><div style='font-size:10px;margin:5px 0'><a target='_blank' href='";
+	public static final String h92 = "/appli.html' target='_blank'>Accès général à l'application (tous rôles)</a><br>\n<a target='_blank' href='";
+	private static final String h93 = "'>Ne plus recevoir cette synthèse hebdomadaire</a></div></div></body></html>";
+
+	private void entete(StringBuffer sb) {
+		String sh = "Alterconsos, synthèse hebdomadaire au " + dateDuJour;
+		sb.append(h1);
+		escapeHTML(sb, subject != null ? subject : sh);
+		sb.append(h2);
 		
-		next(sb);
-		String href1 = myUrl + (unclicC ? "/alterconsos/export" : "/synthese.html") + myAuth + "&op=50";
-		sb.append(href1).append("'>").append(href1);
-		next(sb);
-		if (purHebdo)
-			sb.append("<br>Synthèse hebdomadaire au ").append(dateDuJour);
-		else
-			sb.append("<br>Message envoyé sur demande de l'animateur");
-		next(sb);
+		sb.append("<div style='font-size:13px;font-weight:bold;margin:0 0 5px 0;'>");
+		escapeHTML(sb, subject != null ? subject : sh);
+		sb.append("</div>");
+				
 		if (text != null){
+			sb.append("<div style='margin:5px 0;'>");
 			if (text.startsWith("@"))
 				sb.append(text.substring(1));
 			else
 				escapeHTML(sb, text);
+			sb.append("</div>\n");
 		}
-		next(sb);
-		sb.append(usr == 0 ? libs[mode] : "").append(usrLabel).append(" [")
-		.append(usrInit).append("]</span> : <a target='_blank' href='").append(myUrl)
-		.append(acapp).append(usrLoginMP)
-		.append("'>[Connexion, mot de passe requis]</a>");
-		next(sb);
+		String u = HTServlet.appCfg.url4mail();
+		sb.append(h3).append(u + "/appli.html?").append(usrLoginMP).append(!unclicC ? "" : ".c0" + usrC.ci1()).append(h4);
+		sb.append(usr == 0 ? libs[mode] : "").append(usrLabel).append(" [").append(usrInit).append("]").append(h5);
 	}
-	
-	private static final String help1 = "https://sites.google.com/site/alterconsosapp/faq---foire-aux-questions/alterconso-comment-commander";
-
-	private static final String help2 = "https://sites.google.com/site/alterconsosapp/faq---foire-aux-questions/comment-commander-excel";
-
-	private void enqueue(StringBuffer sb) {
-		next(sb);
-		if (mode >= 2) {
-			sb.append("<li>Passer une commande en utilisant l'application Web :	<a href='" + help1 +
-					"' target='_blank'>" +
-					"<img src='images/info16.png' style='cursor:" +
-					"pointer;position:relative;top:4px'></img></a></li>" +
-					"<li>Passer une commande en utilisant une feuille Excel : <a href='"
-					+ help2 + "' target='_blank'><img src='images/info16.png' " +
-					"style='cursor:pointer;position:relative;top:4px'>" +
-					"</img></a>	- Lien pour <a target='_blank' href='");
-			sb.append(myUrl).append("/import/").append(usrLoginURL)
-			.append("/bdc.html'>enregistrer ma feuille remplie</a></li>");
-		}
-		next(sb);
-		sb.append(" href='").append(myUrl).append("/alterconsos/export")
-			.append(myAuth).append(unclicC ? "" : "&ap=" + usrC.ci1()).append("&op=52'");
-		next(sb);
-		if (!isGrp && unclicC) {
-			sb.append(" - Lien pour <a target='_blank' href='").append(myUrl).append("/alterconsos/export").append(myAuth)
-			.append("&op=57'>désactiver</a>");
-		}
-		next(sb);
 		
+	private void enqueue(StringBuffer sb) {
+		sb.append(h90);
 		for(GContact c : gapc.aContacter()) {
 			sb.append("<li>").append(c.nom()).append(" : ");
 			String em = c.email1();
@@ -324,9 +237,13 @@ public class Synthese2 {
 				}
 			}
 			String tel = c.telephones();
-			sb.append(tel == null ? "" : tel).append("</li>");
+			sb.append(tel == null ? "" : tel).append("</li>\n");
 		}
-		next(sb);
+		String[] cx = HTServlet.appCfg.contacts();
+		for(int i = 0; i < cx.length; i++)
+			sb.append("<li><i>").append(cx[i]).append("</b</li>\n");
+		String u = HTServlet.appCfg.url4mail();
+		sb.append(h91).append(u).append(h92).append(u + "/export.html").append(myAuth).append(!unclicC ? "" : "&ap=" + usrC.ci1()).append("&op=52'").append(h93);
 	}
 
 	private String editGrp(Calendrier.Livr l, String c4, boolean sp) {
@@ -346,7 +263,7 @@ public class Synthese2 {
 		int hlimac = l.hlimac();
 		sb.append("<td>");
 		if (!sp) {
-			sb.append("<span style='color:red'>");
+			sb.append("<span style='color:#FF5722'>");
 			sb.append(limite < dateDuJourI ? "Close depuis " : "Limite ");
 			sb.append(sdflc.format(HTServlet.appCfg.aammjj2Date(limite)));
 			int hl = l.hlimite() == 0 ? 24 : l.hlimite();
@@ -378,16 +295,10 @@ public class Synthese2 {
 			sb.append("Livraison ").append(sdfl.format(HTServlet.appCfg.aammjj2Date(l.livr())));
 			if (l.hlivr() != 0) 
 				sb.append(" à ").append(l.hlivr()).append("h");
-			sb.append("; ");
+			sb.append(" - ");
 			String al = l.adresseL();
-			if (al == null)
-				al = adresse;
-			if (al != null) {
-				try {
-					String s = URLEncoder.encode(al, "UTF-8");
-					sb.append("<a href='http://maps.google.com/maps?q=" + s + "' target='_blank'>" + al + "</a>");
-				} catch (UnsupportedEncodingException e) {	}
-			}
+			if (al == null) al = adresse;
+			if (al != null) sb.append(al);
 			sb.append("<br>");
 		}
 		case 3: {
@@ -400,15 +311,10 @@ public class Synthese2 {
 				else 
 					sb.append(" à ").append(l.hdistrib()).append("h");
 			}
+			sb.append(" - ");
 			String ad = l.adresseD();
-			if (ad == null)
-				ad = adresse;
-			if (ad != null) {
-				try {
-					String s = URLEncoder.encode(ad, "UTF-8");
-					sb.append("; <a href='http://maps.google.com/maps?q=" + s + "' target='_blank'>" + ad + "</a>");
-				} catch (UnsupportedEncodingException e) {	}
-			}
+			if (ad == null) ad = adresse;
+			if (ad != null) sb.append(ad);
 			break;
 		}
 		}

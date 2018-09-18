@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
 encoding//build/deploypg.cmd=Cp1252
+encoding//src/main/webapp/WEB-INF/ac.json=UTF-8

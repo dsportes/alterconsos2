@@ -83,8 +83,6 @@ public class HTServlet extends HttpServlet {
 	}
 
 	public static byte[] defaultExcel;
-	private static String templateSH = "";
-	public static String templateSH() { return templateSH; }
 
 	private static String contextPath = null;
 	
@@ -96,13 +94,12 @@ public class HTServlet extends HttpServlet {
 		AcJSONObject arg = null;
 
 		try {
-			templateSH = new String(getResource(ctx, "/WEB-INF/templateSH.html"), "UTF-8");
 			mailProperties = getResource(ctx, "/WEB-INF/mail.properties");
 			defaultImage = getResource(ctx, "/images/default-64x64.jpg");
 			defaultExcel = getResource(ctx, "/WEB-INF/default.xls");
 			appHtml = getResource(ctx, "/WEB-INF/app.html");
 			byte[] acjson = getResource(ctx, "/WEB-INF/ac.json");
-			arg = AcJSON.parseObjectEx(new String(acjson, "ISO-8859-1"));
+			arg = AcJSON.parseObjectEx(new String(acjson, "UTF-8"));
 		} catch (Exception e) { 
 			log.log(Level.SEVERE, e.getMessage());
 			throw new ServletException(e);			

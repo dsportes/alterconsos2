@@ -878,6 +878,12 @@ AC.Step("AC.StepG1", {
 		var conf = elt.confidentialite ? elt.confidentialite : 0;
 		var int = this.cellGrp.monG() && (APP.Ctx.authUsr == elt.code || !APP.Ctx.authUsr);
 		var r2 = [1, 0, 2][conf];
+		if (this.w < 2){
+			// pas de droit de sécurité
+			var hr = "/app?a" + APP.Ctx.authDir + ".r" + APP.Ctx.authRole + ".g" + APP.Ctx.authGrp + ".u" + APP.Ctx.authUsr; 
+			t.append("<div>Vous vous êtes connecté sans mot de passe ce qui ne vous donne pas accès aux fonctions de sécurité (changement de mot de passe...)");
+			t.append("<div><a href='" + hr + "'>Pour donner votre mot de passe cliquer ici.</a></div><br></div>");
+		}
 		if (this.cellGrp.isGAC && conf == 2 && !int) {
 			t.append("<div>Alterconso #" + elt.code + " : confidentialité restreinte");
 			return;

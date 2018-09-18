@@ -59,7 +59,11 @@ public interface IAppConfig {
 	public int maintenantSimul();
 	
 	public String mailserver();
-	
+
+	public String url4mail();
+
+	public String[] contacts();
+
 	public void reloadConfig(AcJSONObject arg);
 		
 	public String getEMails(String lst);

@@ -26,6 +26,7 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.simple.AcJSONArray;
 import org.json.simple.AcJSONObject;
 
 import fr.alterconsos.cell.CalendrierGAP;
@@ -71,7 +72,11 @@ public class AppConfig implements IAppConfig {
 	private static int maintenant = 0;
 	
 	private static String url;
+
+	private static String url4mail;
 	
+	private static String[] contacts;
+
 	private static int shift = 0;
 
 	private static long maintenantL = 0;
@@ -313,6 +318,14 @@ public class AppConfig implements IAppConfig {
 		return mailserver;
 	}
 
+	@Override public String url4mail() {
+		return url4mail;
+	}
+
+	@Override public String[] contacts() {
+		return contacts;
+	}
+
 	@Override public int maxConnections() {
 		return maxConnections;
 	}
@@ -361,6 +374,10 @@ public class AppConfig implements IAppConfig {
 			} catch (ParseException e) { }
 			build = arg.getS("build", "0");
 			url = arg.getS("url", "");
+			url4mail = arg.getS("url4mail", "");
+			AcJSONArray ar = arg.getA("contacts");
+			contacts = new String[ar.size()];
+			for(int i = 0; i < ar.size(); i++) contacts[i] = ar.getS(i);
 			mailserver = arg.getS("mailserver", "0");
 			if (mailserver.startsWith("javamail"))
 				loadMailProps();
