@@ -292,29 +292,45 @@ public class Synthese2 {
 			break;
 		}
 		case 2: {
-			sb.append("Livraison ").append(sdfl.format(HTServlet.appCfg.aammjj2Date(l.livr())));
-			if (l.hlivr() != 0) 
-				sb.append(" à ").append(l.hlivr()).append("h");
-			sb.append(" - ");
-			String al = l.adresseL();
-			if (al == null) al = adresse;
-			if (al != null) sb.append(al);
-			sb.append("<br>");
+			if (sp)
+				sb.append("<span style='color:#FF5722'>Livrée le ");
+			else 
+				sb.append("Livraison ");	
+			sb.append(sdfl.format(HTServlet.appCfg.aammjj2Date(l.livr())));
+			if (sp)
+				sb.append("</span>");
+			else {
+				if (l.hlivr() != 0) 
+					sb.append(" à ").append(l.hlivr()).append("h");
+				sb.append(" - ");
+				String al = l.adresseL();
+				if (al == null) al = adresse;
+				if (al != null) sb.append(al);
+				sb.append("<br>");
+			}
 		}
 		case 3: {
 			int ld = l.distrib();
 			Date ldd = HTServlet.appCfg.aammjj2Date(ld);
-			sb.append("Distribution " + sdfl.format(ldd));
-			if (l.hdistrib() != 0) {
-				if (l.fdistrib() != 0)
-					sb.append(" de ").append(l.hdistrib()).append("h à ").append(l.fdistrib() + "h");
-				else 
-					sb.append(" à ").append(l.hdistrib()).append("h");
+			if (sp)
+				sb.append("<span style='color:#FF5722'>Distribuée le ");
+			else 
+				sb.append("Distribution ");
+			sb.append(sdfl.format(ldd));
+			if (sp)
+				sb.append("</span>");
+			else {
+				if (l.hdistrib() != 0) {
+					if (l.fdistrib() != 0)
+						sb.append(" de ").append(l.hdistrib()).append("h à ").append(l.fdistrib() + "h");
+					else 
+						sb.append(" à ").append(l.hdistrib()).append("h");
+				}
+				sb.append(" - ");
+				String ad = l.adresseD();
+				if (ad == null) ad = adresse;
+				if (ad != null) sb.append(ad);
 			}
-			sb.append(" - ");
-			String ad = l.adresseD();
-			if (ad == null) ad = adresse;
-			if (ad != null) sb.append(ad);
 			break;
 		}
 		}
