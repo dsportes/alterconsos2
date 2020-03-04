@@ -226,7 +226,8 @@ public class TaskMail extends Task {
 			subject = !obs && c1.bienvenueS() != null ? c1.bienvenueS() : "Synthèse hebdomadaire alterconsos";
 		if (text == null)
 			text = !obs && c1.bienvenueT() != null ? c1.bienvenueT() : null;
-		
+		int maildelai = HTServlet.appCfg.maildelai();
+			
 		for(Ctc c : contacts) {
 			String sub = subject + " - [" + lot + " " + initg + (c.code != 0 ? ("/" + c.initiales + "]") :  "]");
 			int usr = c.code;
@@ -274,7 +275,8 @@ public class TaskMail extends Task {
 				continue;				
 			}
 
-			// try { Thread.sleep(3000);} catch (InterruptedException ex) {}
+			if (maildelai != 0)
+				try { Thread.sleep(maildelai * 1000);} catch (InterruptedException ex) {}
 			String resp = cfg.postMail(mailer, "/send", emails, sub, t, null);
 			if (resp.startsWith("OK"))
 				tm.setTrace(usr, initiales, lot, 0, resp, emails, taille);

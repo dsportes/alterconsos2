@@ -125,7 +125,9 @@ public class AppConfig implements IAppConfig {
 	private static String adminKey;
 	
 	private static int maxConnections;
-	
+
+	private static int maildelai;
+
 	private static String dbURL;
 
 	private static String username;
@@ -329,7 +331,11 @@ public class AppConfig implements IAppConfig {
 	@Override public int maxConnections() {
 		return maxConnections;
 	}
-	
+
+	@Override public int maildelai() {
+		return maildelai;
+	}
+
 	@Override public String dbURL() {
 		return dbURL;
 	}
@@ -387,6 +393,7 @@ public class AppConfig implements IAppConfig {
 			adminKey = arg.getS("adminKey", "");
 			String x = arg.getS("emailfilter", null);
 			emailfilter = x == null ? new String[0] : x.split(" ");
+			maildelai = arg.getI("maildelai", 5);
 			adminMails = arg.getS("adminMails", "").split(" ");
 			maxConnections = arg.getI("maxConnections", 100);
 			dbURL = arg.getS("dbURL", "");			

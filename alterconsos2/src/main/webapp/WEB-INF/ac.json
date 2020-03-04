@@ -25,6 +25,7 @@
 	],
 	
 	"mailserverX":"simu",
+	"maildelai": 5,
 	"mailserverY":"javamail",
 	"mailserverZ":"http://alterconsos.sportes.fr/server3.php",
 	"mailserver":"http://alterconsos.fr/tech/server3.php",

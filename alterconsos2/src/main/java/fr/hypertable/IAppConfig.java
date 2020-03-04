@@ -36,6 +36,8 @@ public interface IAppConfig {
 
 	public int maxRetries();
 
+	public int maildelai();
+
 	public Operation operation(String name) throws AppException;
 
 	public Task task(String name) throws AppException;
