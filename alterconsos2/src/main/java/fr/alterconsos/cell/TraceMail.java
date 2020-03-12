@@ -66,13 +66,13 @@ public class TraceMail extends Cell {
 		return status;
 	}
 	
-	public ArrayInt getCpts() {
+	public ArrayInt getCpts(String lot) {
 		ArrayInt r = new ArrayInt();
 		for(int i = 0; i < 5 ; i++)
 			r.add(0);
 		for(CellNode cn : nodesByKey("C.")){
 			Trace t = (Trace) cn;
-			if (t.status >= 0 && t.status < 5)
+			if (t.status >= 0 && t.status < 5 && lot.equals(t.lot))
 				r.set(t.status, r.get(t.status) + 1);
 		}
 		return r;

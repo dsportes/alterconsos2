@@ -306,7 +306,11 @@ public class AppConfig implements IAppConfig {
 		}
 		return new Date();
 	}
-	
+
+	@Override public String dhReelle() {
+		return sdf1.format(new Date());
+	}
+
 	@Override public int maintenant() {
 		if (maintenant != 0) return maintenant;
 		return Integer.valueOf(sdfjh.format(new Date()));

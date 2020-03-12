@@ -20,6 +20,8 @@ public interface IAppConfig {
 	
 	public boolean isAdmin(String key);
 	
+	public String dhReelle();
+	
 	public SimpleDateFormat sdf1();
 
 	public SimpleDateFormat sdfj();

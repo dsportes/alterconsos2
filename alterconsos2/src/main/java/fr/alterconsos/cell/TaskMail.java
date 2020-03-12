@@ -134,7 +134,8 @@ public class TaskMail extends Task {
 			tr.startPhaseForte("D", false);
 			TaskMail tm = new TaskMail();
 			if (retry != 0){
-				try { Thread.sleep(retry * 60000);} catch (InterruptedException e) {}
+				int n = retry > 3 ? 3 : retry;
+				try { Thread.sleep(n * 60000);} catch (InterruptedException e) {}
 			}
 			tm.todo(l.lot, l.subject, l.text, l.grps, l.grpsAnim, retry);
 			tm.endTodo();
@@ -237,7 +238,7 @@ public class TaskMail extends Task {
 				tr.startPhaseForte(line, false);
 				TraceMail tm = TraceMail.get(at, ag);
 				tm.setTrace(usr, initiales, lot, 1, "résilié ou ne reçoit pas de synthèse hebdo", emails, 0);
-				cpts = tm.getCpts();
+				cpts = tm.getCpts(lot);
 				tr.endPhase(true);
 				continue;
 			}
@@ -246,7 +247,7 @@ public class TaskMail extends Task {
 				tr.startPhaseForte(line, false);
 				TraceMail tm = TraceMail.get(at, ag);
 				tm.setTrace(usr, initiales, lot, 2, "adresse(s) e-mail non valide ou absente", emails, 0);
-				cpts = tm.getCpts();
+				cpts = tm.getCpts(lot);
 				tr.endPhase(true);
 				continue;
 			}
@@ -260,7 +261,7 @@ public class TaskMail extends Task {
 				tr.startPhaseForte(line, false);
 				TraceMail tm = TraceMail.get(at, ag);
 				tm.setTrace(usr, initiales, lot, 3, "ni commandes récentes / en cours, ni information à diffuser", emails, 0);
-				cpts = tm.getCpts();
+				cpts = tm.getCpts(lot);
 				tr.endPhase(true);
 				continue;				
 			}
@@ -270,7 +271,7 @@ public class TaskMail extends Task {
 			TraceMail tm = TraceMail.get(at, ag);
 			Trace tra = tm.getTrace(c.code);
 			if (tra != null && tra.lot().equals(lot) && tra.status == 0) {
-				cpts = tm.getCpts();
+				cpts = tm.getCpts(lot);
 				tr.endPhase(true);
 				continue;				
 			}
@@ -281,16 +282,14 @@ public class TaskMail extends Task {
 			if (resp.startsWith("OK"))
 				tm.setTrace(usr, initiales, lot, 0, resp, emails, taille);
 			else {
-//				if (resp.length() < 300)
 				if (resp.length() > 1024)
 					resp = resp.substring(0, 1024);
-					tm.setTrace(usr, initiales, lot, 4, AS.escapeHTML(resp), emails, taille);
-//				else {
-//					String x = "<br><a target=\"_blank\" href=\"" + putError(line, usr, resp) + "\">Lien vers le texte d'erreur</a>";
-//					tm.setTrace(usr, initiales, lot, 4, x, emails, taille);
-//				}
+				String dh = HTServlet.appCfg.dhReelle();
+				tm.setTrace(usr, initiales, lot, 4, dh + " - " + AS.escapeHTML(resp), emails, taille);
+				HTServlet.appCfg.log().log(Level.WARNING, "task Mail ERROR SEND - Lot: " + lot + " [" +
+						HTServlet.appCfg.myUrl() + "] Grp:" + gx + " usr:" + c.code + " RESP:" + dh + " - " + resp);
 			}
-			cpts = tm.getCpts();
+			cpts = tm.getCpts(lot);
 			tr.endPhase(true);
 			continue;
 		}
