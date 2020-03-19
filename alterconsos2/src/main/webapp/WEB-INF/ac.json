@@ -29,7 +29,7 @@
 	"mailserverY":"javamail",
 	"mailserverZ":"http://alterconsos.sportes.fr/server3.php",
 	"mailserver":"http://alterconsos.fr/tech/server3.php",
-  	"mdps":{"A":"les_ROSES_2018", "B":"les_ROSES_2018"},
+  	"mdps":{"A":"2020_stopogm", "B":"les_ROSES_2018"},
   	"smtp":true,
 	
 	"adminSender" : "daniel.sportes@gmail.com",
