@@ -39,14 +39,14 @@ AC.declare(AC.Help, AC.SmallScreen);
 
 AC.helplinks = {
 	home : "", 
-	Login:"vues/vue-login",
-	helpinfo : "vues/vue-aide-en-ligne",
-	Page_login : "vues/vue-entree",
-	About : "vues/vue-a-propos",
-	Page_ac2 : "vues/vue-entree",
-	PrintBox : "technique/savejpg",
-	KBLPGac2 : "vues/kblp",
-	Paiement2 : "vues/paiements",
+	Login:"vues/vue-login.html",
+	helpinfo : "vues/vue-aide-en-ligne.html",
+	Page_login : "vues/vue-entree.html",
+	About : "vues/vue-a-propos.html",
+	Page_ac2 : "vues/vue-entree.html",
+	PrintBox : "technique/savejpg.html",
+	KBLPGac2 : "vues/kblp.html",
+	Paiement2 : "vues/paiements.html",
 	// LV1 : "vues/lv1",
 		
 	PbTech : "<h2 id='PbTech'>Petit problème technique ... que faire ?</h2>" +
