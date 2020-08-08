@@ -1,7 +1,7 @@
 AC.Help = function(){}
 AC.Help._static = { 
 		
-		baseUrl : "https://sites.google.com/site/alterconsosapp/",
+		baseUrl : "https://alterconsos.fr/apphelp/",
 			
 		notFound : "technique/etc/redaction-en-cours",
 		
@@ -91,6 +91,6 @@ AC.helplinks = {
 			"judicieux : les conditions qui ont provoqué l'erreur peuvent avoir " +
 			"disparu du fait de nouvelles données dans l'application. Sinon " +
 			"tenter de joindre un administrateur ou l'auteur de l'application.</li></ul></div>" +
-			"<a target='_blank' href='https://sites.google.com/site/alterconsosapp/technique/bugs'>Qu'est-ce qu'un bug (ou bogue)</a>",
+			"<a target='_blank' href='https://alterconsos.fr/apphelp/technique/bugs'>Qu'est-ce qu'un bug (ou bogue)</a>",
 		
 }

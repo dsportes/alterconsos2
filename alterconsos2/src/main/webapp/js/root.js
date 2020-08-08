@@ -1109,7 +1109,7 @@ html0 : "<div class='acAvert'>"
 	+ "sur votre écran sans avoir à resynchroniser."
 	+ "<div class='acSpace2 orange italic'><span class='large bold'>Plus d'informations à propos de l'application : "
 	+ "</span>présentation, nouveautés, historique, vidéos, aide en ligne ... "
-	+ "<a href='https://sites.google.com/site/alterconsosapp/' target='_blank'>"
+	+ "<a href='https://alterconsos.fr/apphelp/' target='_blank'>"
 	+ "<span class='large bold'>Cliquer ici</span></a></div>"
 	+ "</div>"
 
